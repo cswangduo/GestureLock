@@ -5,14 +5,23 @@
     android:gravity="center"
     android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_set"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_switch"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:layout_centerVertical="true"
-        android:background="#F87890"
         android:gravity="center"
         android:text="消息开关"
         android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/iv_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:src="@mipmap/gesture_swith_open" />
+
 </LinearLayout>
