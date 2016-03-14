@@ -24,8 +24,7 @@ public class GestureLockSetActivity extends BaseActivity {
     private TextView tv_tip;
     private GestureCueView lockTipView;
     private GestureLockView lockView;
-    private String firstEnterPsw = null; // 缓存第一次设置的密码
-    private boolean isFirstSet = true; // 是否第一次设置密码
+    private String firstEnterPsw = null; // 缓存第一次设置的密码 为空时则为第一次设置密码
 
     private static Class<?> desClass; // 设置完手势密码后跳转页面
 
@@ -66,14 +65,14 @@ public class GestureLockSetActivity extends BaseActivity {
     private GestureLockView.OnPatterChangeListener onPatterChangeListener = new GestureLockView.OnPatterChangeListener() {
         @Override
         public void onPatterChanged(String password) {
-            if (isFirstSet) { // 首次密码设置
+            if (null == firstEnterPsw) { // 首次密码设置
                 if (password.length() < Config.MINLENGTH_PSW) { // 密码少于指定位数
+                    firstEnterPsw = null;
                     tv_tip.setText(ERROR_LENGTH);
                     lockView.showErrorState();
                     startShake();
                 } else {
                     lockTipView.showSelectedPoint(password);
-                    isFirstSet = false;
                     firstEnterPsw = password;
                     lockView.resetAndInvalidate();
                     tv_tip.setText(INPUT_AGAIN);
@@ -93,7 +92,7 @@ public class GestureLockSetActivity extends BaseActivity {
                     lockView.showErrorState();
                     tv_tip.setText(ERROR_INPUT);
                     lockTipView.resetAndInvalidate();
-                    isFirstSet = true;
+                    firstEnterPsw = null;
                     startShake();
                 }
             }
@@ -101,9 +100,6 @@ public class GestureLockSetActivity extends BaseActivity {
 
         @Override
         public void onPatterStart() {
-            if (isFirstSet) {
-            } else {
-            }
         }
     };
 

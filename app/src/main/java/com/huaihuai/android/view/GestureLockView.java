@@ -18,7 +18,7 @@ import com.huaihuai.android.entity.GestureLockPoint;
 import java.util.ArrayList;
 
 /**
- * 手势锁九宫格view
+ * 手势锁-九宫格图案
  * Created by wangduo on 15/12/4.
  */
 public class GestureLockView extends View {
@@ -31,12 +31,12 @@ public class GestureLockView extends View {
     private GestureLockPoint curPoint; // 当前手指触碰的圈(不在九宫格内则为null)
     private boolean isStart; // 绘制开始
     private boolean isFinish; // 绘制结束
-    private ArrayList<GestureLockPoint> selectedPointsList;
+    private ArrayList<GestureLockPoint> selectedPointsList; // 已选中点列表
     private GestureLockPoint[][] points;
 
     private boolean isInit; // 初始化九宫格一次
 
-    private int width; // 九宫格view的宽度
+    private int width; // 九宫格view的宽高
     private int paddingIn = 30; // 九宫格相邻两圈的间距 单位:dp
     private int bitmapR = 60; // 九宫格圈的目标大小(直径) 单位:dp
 
@@ -137,7 +137,7 @@ public class GestureLockView extends View {
     }
 
     /**
-     * 判断x，y坐标所在的位置是否为九宫格中的点
+     * 判断x，y坐标所在的位置是否为九宫格中的点,是则返回该点
      *
      * @param x
      * @param y
@@ -199,12 +199,12 @@ public class GestureLockView extends View {
             GestureLockPoint pStart = selectedPointsList.get(0);
             for (GestureLockPoint pEnd : selectedPointsList) {
                 if (pStart != pEnd) {
-                    line2Canvas(canvas, pStart, pEnd, true);
+                    line2Canvas(canvas, pStart, pEnd);
                     pStart = pEnd;
                 }
             }
             if (!isFinish) {
-                line2Canvas(canvas, pStart, new GestureLockPoint(movingX, movingY), false);
+                line2Canvas(canvas, pStart, new GestureLockPoint(movingX, movingY));
             }
         }
     }
@@ -212,12 +212,11 @@ public class GestureLockView extends View {
     /**
      * 画线
      *
-     * @param canvas    画布
-     * @param pStart    起始点
-     * @param pEnd      终结点
-     * @param isTwoNode 是否为两个九宫格的结点
+     * @param canvas 画布
+     * @param pStart 起始点
+     * @param pEnd   终结点
      */
-    private void line2Canvas(Canvas canvas, GestureLockPoint pStart, GestureLockPoint pEnd, boolean isTwoNode) {
+    private void line2Canvas(Canvas canvas, GestureLockPoint pStart, GestureLockPoint pEnd) {
         float degree = GestureLockPoint.degree(pStart, pEnd);
         canvas.rotate(degree, pStart.pointX, pStart.pointY);
         Matrix matrix = new Matrix();

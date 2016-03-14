@@ -48,6 +48,7 @@ public class GestureLockVerifyActivity extends BaseActivity {
         }
     };
 
+    // 手势密码错误 文字抖动
     private void startShake() {
         TranslateAnimation animation = new TranslateAnimation(0, -5, 0, 0);
         animation.setInterpolator(new OvershootInterpolator());
@@ -99,7 +100,7 @@ public class GestureLockVerifyActivity extends BaseActivity {
     public void onBackPressed() {
     }
 
-    private static Class<?> desClass; // 输入手势密码后跳转页面
+    private static Class<?> desClass; // 手势密码验证成功后跳转至页面
 
     public static void startActivity(Context context, Class cl) {
         desClass = cl;

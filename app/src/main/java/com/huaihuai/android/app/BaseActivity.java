@@ -43,6 +43,7 @@ public class BaseActivity extends Activity {
             // 此处判断条件: 1.已登陆 2.有密码 3.密码不为空
             if (!TextUtils.isEmpty(Pref.getString(Pref.GESTUREPSW, getBaseContext(), null))) {
                 long curTime = System.currentTimeMillis();
+                // 后台运行20s则 再次进入app显示手势密码
                 if (curTime - MyApplication.getInstance().getEnterBackstageTime() > 20 * 1000) {
                     GestureLockVerifyActivity.startActivity(getBaseContext(), null);
                 }

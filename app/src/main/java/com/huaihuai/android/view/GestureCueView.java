@@ -15,7 +15,7 @@ import com.huaihuai.android.entity.GestureLockPoint;
 
 
 /**
- * 手势密码提示view：小九宫格
+ * 手势密码提示图案：小九宫格
  * Created by wangduo on 15/12/4.
  */
 public class GestureCueView extends View {
@@ -28,7 +28,7 @@ public class GestureCueView extends View {
 
     private GestureLockPoint[][] points;
 
-    private static final int PADIN = 5;
+    private static final int PADIN = 5; // 单位:dp
     private int paddingIn; // 九宫格距离父控件左右间距
 
     private boolean isInit; // 初始化九宫格一次
@@ -91,16 +91,13 @@ public class GestureCueView extends View {
         for (int i = 0; i < points.length; i++) {
             for (int j = 0; j < points[i].length; j++) {
                 Matrix matrix = new Matrix();
-//                float sx = (float) (1.0 * Math.min(screenHeight, screenWidth) / 720);
                 float sx = 1.0f;
                 matrix.setScale(sx, sx);
                 matrix.postTranslate(points[i][j].pointX - bitmapR * sx * 0.5f, points[i][j].pointY - bitmapR * sx * 0.5f);
                 if (points[i][j].state == GestureLockPoint.STATE_NOR) {
                     canvas.drawBitmap(bitmap_circle_nor, matrix, mPaint);
-//                    canvas.drawBitmap(bitmap_circle_nor, points[i][j].pointX - bitmapR / 2, points[i][j].pointY - bitmapR / 2, mPaint);
                 } else if (points[i][j].state == GestureLockPoint.STATE_PRESS) {
                     canvas.drawBitmap(bitmap_circle_press, matrix, mPaint);
-//                    canvas.drawBitmap(bitmap_circle_press, points[i][j].pointX - bitmapR / 2, points[i][j].pointY - bitmapR / 2, mPaint);
                 }
             }
         }
